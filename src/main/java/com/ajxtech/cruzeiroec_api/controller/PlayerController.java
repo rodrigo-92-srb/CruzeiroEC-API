@@ -2,6 +2,7 @@ package com.ajxtech.cruzeiroec_api.controller;
 
 import com.ajxtech.cruzeiroec_api.model.Player;
 import com.ajxtech.cruzeiroec_api.repository.PlayerRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class PlayerController {
     }
 
     @PutMapping("/{id}")
-    public Player updatePlayer(@PathVariable Long id, @RequestBody Player updatedPlayer) {
+    public Player updatePlayer(@PathVariable Long id, @Valid @RequestBody Player updatedPlayer) {
         return playerRepository.findById(id).map(player -> {
             player.setName(updatedPlayer.getName());
             player.setAge(updatedPlayer.getAge());
