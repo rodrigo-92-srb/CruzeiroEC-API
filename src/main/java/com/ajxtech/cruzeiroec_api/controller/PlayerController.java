@@ -19,6 +19,12 @@ public class PlayerController {
         return playerRepository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Player getPlayerById(@PathVariable Long id) {
+        return playerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Player not found with ID: " + id));
+    }
+
     @PostMapping
     public Player createPlayer(@RequestBody Player player) {
         return playerRepository.save(player);
