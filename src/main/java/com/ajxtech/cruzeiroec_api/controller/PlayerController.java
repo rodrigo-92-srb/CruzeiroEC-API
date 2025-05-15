@@ -29,4 +29,16 @@ public class PlayerController {
     public Player createPlayer(@RequestBody Player player) {
         return playerRepository.save(player);
     }
+
+    @PutMapping("/{id}")
+    public Player updatePlayer(@PathVariable Long id, @RequestBody Player updatedPlayer) {
+        return playerRepository.findById(id).map(player -> {
+            player.setName(updatedPlayer.getName());
+            player.setAge(updatedPlayer.getAge());
+            player.setHeight(updatedPlayer.getHeight());
+            player.setWeight(updatedPlayer.getWeight());
+            player.setRole(updatedPlayer.getRole());
+            return playerRepository.save(player);
+        }).orElseThrow(() -> new RuntimeException("Player not found with ID: " + id));
+    }
 }
