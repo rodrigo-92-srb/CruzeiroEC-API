@@ -41,4 +41,10 @@ public class PlayerController {
             return playerRepository.save(player);
         }).orElseThrow(() -> new RuntimeException("Player not found with ID: " + id));
     }
+
+    @DeleteMapping("/{id}")
+    public String deletePlayer(@PathVariable Long id) {
+        playerRepository.deleteById(id);
+        return "Player with ID " + id + " was deleted successfully.";
+    }
 }
