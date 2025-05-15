@@ -19,8 +19,8 @@ public class PlayerController {
         return playerRepository.findAll();
     }
 
-    @PostMapping("/{id}")
-    public Player createPlayer(@PathVariable Long id, @RequestBody Player player) {
+    @PostMapping
+    public Player createPlayer(@RequestBody Player player) {
         return playerRepository.save(player);
     }
 }
