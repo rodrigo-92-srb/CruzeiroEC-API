@@ -2,6 +2,7 @@ package com.ajxtech.cruzeiroec_api.controller;
 
 import com.ajxtech.cruzeiroec_api.model.Player;
 import com.ajxtech.cruzeiroec_api.repository.PlayerRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +16,26 @@ public class PlayerController {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Operation(summary = "Get all players", description = "Returns a list of players")
     @GetMapping
     public List<Player> getAllPlayers() {
         return playerRepository.findAll();
     }
 
+    @Operation(summary = "Get player by ID", description = "Returns player by ID")
     @GetMapping("/{id}")
     public Player getPlayerById(@PathVariable Long id) {
         return playerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Player not found with ID: " + id));
     }
 
+    @Operation(summary = "Create a new player", description = "Create a player")
     @PostMapping
     public Player createPlayer(@RequestBody Player player) {
         return playerRepository.save(player);
     }
 
+    @Operation(summary = "Update player by ID", description = "Update player by ID")
     @PutMapping("/{id}")
     public Player updatePlayer(@PathVariable Long id, @Valid @RequestBody Player updatedPlayer) {
         return playerRepository.findById(id).map(player -> {
@@ -43,6 +48,7 @@ public class PlayerController {
         }).orElseThrow(() -> new RuntimeException("Player not found with ID: " + id));
     }
 
+    @Operation(summary = "Delete player by ID", description = "Delete player by ID")
     @DeleteMapping("/{id}")
     public String deletePlayer(@PathVariable Long id) {
         playerRepository.deleteById(id);
