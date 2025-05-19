@@ -5,6 +5,8 @@ import com.ajxtech.cruzeiroec_api.repository.PlayerRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +20,8 @@ public class PlayerController {
 
     @Operation(summary = "Get all players", description = "Returns a list of players")
     @GetMapping
-    public List<Player> getAllPlayers() {
-        return playerRepository.findAll();
+    public Page<Player> getAllPlayers(Pageable pageable) {
+        return playerRepository.findAll(pageable);
     }
 
     @Operation(summary = "Get player by ID", description = "Returns player by ID")
