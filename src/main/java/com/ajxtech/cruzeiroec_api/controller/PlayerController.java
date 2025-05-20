@@ -56,4 +56,9 @@ public class PlayerController {
         playerRepository.deleteById(id);
         return "Player with ID " + id + " was deleted successfully.";
     }
+
+    @GetMapping("/search")
+    public List<Player> searchPlayersByName(@RequestParam String name) {
+        return playerRepository.findByNameContainingIgnoreCase(name);
+    }
 }
