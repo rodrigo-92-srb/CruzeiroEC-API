@@ -61,4 +61,9 @@ public class PlayerController {
     public List<Player> searchPlayersByName(@RequestParam String name) {
         return playerRepository.findByNameContainingIgnoreCase(name);
     }
+
+    @GetMapping("/health")
+    public String healthCheck() {
+        return "API is up and running!";
+    }
 }
